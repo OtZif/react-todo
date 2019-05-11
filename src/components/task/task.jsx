@@ -5,18 +5,23 @@ import TaskItem from "../task-item/task-item";
 class Task extends Component {
 
   render() {
-    const {todo, onDestroy, onChangeLabel} = this.props;
-    const elements = todo.map((item) => {
+    const {todos, currentEdit, onCheckItem, onDestroy, onChangeLabel, onCheckStatus, addChanges} = this.props;
+    //console.log(currentEdit);
 
-      const {id, className, ...itemProps} = item;
+    const elements = todos.map((item) => {
+
+      const {id, ...itemProps} = item;
       return (
-        <li
-          key={id}
-          className={className}>
+        <li key={id}>
           <TaskItem
             {...itemProps}
+            isEditing = { currentEdit === id }
             onDestroy={() => onDestroy(id)}
-            onChangeLabel = {() => onChangeLabel(id)}/>
+            onChangeLabel = {() => onChangeLabel(id)}
+            onCheckItem ={() => onCheckItem(id)}
+            onCheckStatus = { onCheckStatus }
+            addChanges ={addChanges}
+          />
         </li>
       );
     });

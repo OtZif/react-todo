@@ -2,21 +2,45 @@ import React, {Component} from 'react';
 import './footer.css';
 
 class Footer extends Component {
+
+  buttons = [
+    {name: 'all', label: 'All'},
+    {name: 'active', label: 'Active'},
+    {name: 'completed', label: 'Completed'}
+  ];
   render() {
-    function size() {
-      const count = 1;
-      return `${count} item left`;
-    }
+    const {onSize, onClearCompleted, filter, onFilterChange, onVisibleButton} = this.props;
+
+    const buttons = this.buttons.map(({name, label}) => {
+      const isActive = filter === name;
+      const clazz = isActive ? 'selected' : '';
+        return(
+          <button
+            key = {name}
+            className={`control--item  ${clazz} `}
+            onClick={ () => onFilterChange(name) }
+          >
+            {label}
+          </button>
+        )
+    });
+
 
     return (
       <footer className='footer'>
-        <span id='ssds'>{size()}</span>
+        <span>{onSize}</span>
         <div className="control">
-          <button className='control--item selected' id="filter-all">All</button>
-          <button className='control--item' id="filter-active">Active</button>
-          <button className='control--item' id="filter-completed">Completed</button>
+          { buttons }
+          {/*<button className='control--item selected' onClick={ onFilter }>All</button>*/}
+          {/*<button className='control--item' onClick={ onFilter }>Active</button>*/}
+          {/*<button className='control--item'>Completed</button>*/}
         </div>
-        <button className="clear-completed" id="clearCompleted">Clear completed</button>
+        <button
+          className = { onVisibleButton }
+          onClick={ onClearCompleted }
+        >
+          Clear completed
+        </button>
       </footer>
     );
   }
