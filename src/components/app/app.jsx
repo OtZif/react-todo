@@ -4,14 +4,11 @@ import Header from '../header/header';
 import Main from '../main/main';
 import Footer from '../footer/footer';
 import './app.css';
-//import Task from "../task/task";
-
-
 
 class App extends Component{
 
   lastId = 0;
-  statee = {
+  firstState = {
     /* { id: Number, text: String, checked: Boolean } */
     todos: [],
     currentEdit: null,
@@ -20,14 +17,11 @@ class App extends Component{
 
   };
 
-  state = JSON.parse(localStorage.getItem('todo')) == null ? this.statee : JSON.parse(localStorage.getItem('todo'));
-
+  state = JSON.parse(localStorage.getItem('todo')) == null ? this.firstState : JSON.parse(localStorage.getItem('todo'));
 
   addLocal = () =>{
     localStorage.setItem('todo', JSON.stringify(this.state));
-
   };
-
 
   deleteItem = (id) => {
     this.setState(({todos}) => {
@@ -49,7 +43,6 @@ class App extends Component{
     });
   };
 
-
   addItem = (text) => {
     this.setState({
       todos: [...this.state.todos, {
@@ -60,11 +53,9 @@ class App extends Component{
       currentEdit: false,
       allChecked: false
     });
-    //this.addLocal();
   };
 
   changeItemValue = (id) => {
-    //console.log(`Change value of: ${id}`);
     this.setState({ currentEdit: id});
   };
 
@@ -72,7 +63,6 @@ class App extends Component{
     this.setState(({todos}) => {
       return { todos: todos.map((todo) => {
           if(this.state.currentEdit === todo.id){
-            //console.log(todo.text);
             todo.text = text;
           }
           return {
@@ -87,19 +77,15 @@ class App extends Component{
   checkItem = (id) => {
     this.setState(({todos}) => {
       return { todos: todos.map((todo) => {
-        //console.log(todo);
         if(id === todo.id){
           todo.checked = !todo.checked;
         }
         return {
           ...todo
         }
-          //return { ...todo, checked: id === todo.id };
         })};
     });
   };
-
-
 
   filter = (items, currentFilter) => {
     switch (currentFilter) {
@@ -118,18 +104,10 @@ class App extends Component{
     this.setState({currentFilter});
   };
 
-
   toggleAll = () => {
-    //const newArr = this.state.allChecked = !this.state.allChecked;
     this.setState(({todos, allChecked}) => {
       return{ todos: todos.map((el)=> {
           el.checked = (this.state.allChecked === false) ? true : false;
-
-        // if(this.state.allChecked === false){
-        //   el.checked = true;
-        // } else {
-        //   el.checked = false;
-        // }
           return{
             ...el
           }
@@ -147,15 +125,10 @@ class App extends Component{
     });
   };
 
-
-
   render() {
     this.addLocal();
 
     const visible = this.filter(this.state.todos, this.state.currentFilter);
-
-    //console.log(this.state.todos);
-    //console.log('Кнопка Chacked ALL - status: ' + this.state.allChecked);
 
     const currentTasks = () => {
       const amount = this.state.todos.filter((el) => el.checked === false).length;
@@ -171,17 +144,6 @@ class App extends Component{
 
       return (amount === 0) ? `clear-completed visibility` : 'clear-completed';
     };
-
-
-
-   //console.log(checkStatusChecked());
-
-
-
-
-
-
-
 
     return (
       <div>
@@ -214,6 +176,5 @@ class App extends Component{
   }
 
 }
-
 
 export default App;
