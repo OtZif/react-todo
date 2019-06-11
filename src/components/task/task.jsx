@@ -1,26 +1,31 @@
-import React, {Component} from 'react';
-import './task.css';
+import React, { Component } from "react";
+import "./task.css";
 import TaskItem from "../task-item/task-item";
 
 class Task extends Component {
-
   render() {
-    const {todos, currentEdit, onCheckItem, onDestroy, onChangeLabel, onCheckStatus, addChanges} = this.props;
-    //console.log(currentEdit);
+    const {
+      todos,
+      currentEdit,
+      onCheckItem,
+      onDestroy,
+      onChangeLabel,
+      onCheckStatus,
+      addChanges
+    } = this.props;
 
-    const elements = todos.map((item) => {
-
-      const {id, ...itemProps} = item;
+    const elements = todos.map(item => {
+      const { id, ...itemProps } = item;
       return (
         <li key={id}>
           <TaskItem
             {...itemProps}
-            isEditing = { currentEdit === id }
+            isEditing={currentEdit === id}
+            onCheckItem={() => onCheckItem(id)}
             onDestroy={() => onDestroy(id)}
-            onChangeLabel = {() => onChangeLabel(id)}
-            onCheckItem ={() => onCheckItem(id)}
-            onCheckStatus = { onCheckStatus }
-            addChanges ={addChanges}
+            onChangeLabel={() => onChangeLabel(id)}
+            onCheckStatus={onCheckStatus}
+            addChanges={addChanges}
           />
         </li>
       );
