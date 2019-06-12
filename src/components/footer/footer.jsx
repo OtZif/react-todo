@@ -20,11 +20,12 @@ class Footer extends Component {
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
       const clazz = isActive ? "selected" : "";
+      let x = () => onFilterChange(name);
       return (
         <button
           key={name}
           className={`control--item  ${clazz} `}
-          onClick={() => onFilterChange(name)}
+          onClick={x}
         >
           {label}
         </button>

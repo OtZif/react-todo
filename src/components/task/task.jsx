@@ -16,14 +16,18 @@ class Task extends Component {
 
     const elements = todos.map(item => {
       const { id, ...itemProps } = item;
+
+      let x = () => onCheckItem(id);
+      let y = () => onDestroy(id);
+      let z = () => onChangeLabel(id);
       return (
         <li key={id}>
           <TaskItem
             {...itemProps}
             isEditing={currentEdit === id}
-            onCheckItem={() => onCheckItem(id)}
-            onDestroy={() => onDestroy(id)}
-            onChangeLabel={() => onChangeLabel(id)}
+            onCheckItem={x}
+            onDestroy={y}
+            onChangeLabel={z}
             onCheckStatus={onCheckStatus}
             addChanges={addChanges}
           />
