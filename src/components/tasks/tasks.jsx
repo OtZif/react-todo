@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import "./task.css";
+import "./tasks.css";
 import TaskItem from "../task-item/task-item";
 
-class Task extends Component {
+class Tasks extends Component {
   render() {
     const {
       todos,
       currentEdit,
       onCheckItem,
       onDestroy,
-      onChangeLabel,
+      onChangeItemValue,
       onCheckStatus,
-      addChanges
+      pressEnterForEdit
     } = this.props;
 
     const elements = todos.map(item => {
@@ -21,7 +21,7 @@ class Task extends Component {
       как методы класса */
       let x = () => onCheckItem(id);
       let y = () => onDestroy(id);
-      let z = () => onChangeLabel(id);
+      let z = () => onChangeItemValue(id);
       return (
         <li key={id}>
           <TaskItem
@@ -29,9 +29,9 @@ class Task extends Component {
             isEditing={currentEdit === id}
             onCheckItem={x}
             onDestroy={y}
-            onChangeLabel={z}
+            onChangeItemValue = {z}
             onCheckStatus={onCheckStatus}
-            addChanges={addChanges}
+            pressEnterForEdit={pressEnterForEdit}
           />
         </li>
       );
@@ -44,4 +44,4 @@ class Task extends Component {
   }
 }
 
-export default Task;
+export default Tasks;

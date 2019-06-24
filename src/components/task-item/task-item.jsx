@@ -8,9 +8,9 @@ class TaskItem extends Component {
       isEditing,
       onCheckItem,
       onDestroy,
-      onChangeLabel,
+      onChangeItemValue,
       onCheckStatus,
-      addChanges
+      pressEnterForEdit
     } = this.props;
 
     if (isEditing) {
@@ -20,14 +20,7 @@ class TaskItem extends Component {
           className="edit"
           autoFocus
           defaultValue={text}
-          onKeyUp={e => {
-            if (e.keyCode === 13) {
-              if (e.target.value.trim() === "") {
-                return onDestroy();
-              }
-              return addChanges(e.target.value);
-            }
-          }}
+          onKeyUp={pressEnterForEdit}
         />
       );
     }
@@ -40,7 +33,7 @@ class TaskItem extends Component {
           onChange={onCheckStatus}
           checked={checked}
         />
-        <label onDoubleClick={onChangeLabel}>{text}</label>
+        <label onDoubleClick={onChangeItemValue}>{text}</label>
         <button className="destroy" onClick={onDestroy} />
       </div>
     );

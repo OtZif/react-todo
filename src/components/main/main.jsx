@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Task from "../task/task";
+import Tasks from "../tasks/tasks";
 import "./main.css";
 
 class Main extends Component {
@@ -9,11 +9,12 @@ class Main extends Component {
       currentEdit,
       onDestroy,
       onCheckItem,
-      onChangeLabel,
-      toggleStatus,
+      onChangeItemValue,
+      tumblerStatus,
       onToggleAll,
       onCheckStatus,
-      addChanges
+      pressEnterForEdit
+      //addChanges
     } = this.props;
     return (
       <main className="main">
@@ -23,19 +24,20 @@ class Main extends Component {
             className="toggle-all"
             type="checkbox"
             onChange={onToggleAll}
-            checked={toggleStatus}
+            checked={tumblerStatus}
           />
         )}
         <label className="pen" htmlFor="toggle-all" />
-        {/* TODO Почему компонент называется не во множественном числе? По идее должно быть Tasks. Лучше переименовать */}
-        <Task
+        {/* DONE TODO Почему компонент называется не во множественном числе? По идее должно быть Tasks. Лучше переименовать */}
+        <Tasks
           todos={todos}
           currentEdit={currentEdit}
           onCheckItem={onCheckItem}
           onDestroy={onDestroy}
-          onChangeLabel={onChangeLabel}
+          onChangeItemValue={onChangeItemValue}
           onCheckStatus={onCheckStatus}
-          addChanges={addChanges}
+          //addChanges={addChanges}
+          pressEnterForEdit={pressEnterForEdit}
         />
       </main>
     );

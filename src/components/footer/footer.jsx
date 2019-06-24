@@ -10,12 +10,17 @@ class Footer extends Component {
 
   render() {
     const {
-      onSize,
+      state,
+      tasksAmount,
       onClearCompleted,
       filter,
-      onFilterChange,
-      onVisibleButton
+      onFilterChange
     } = this.props;
+
+    const clearAmount = () => {
+      const amount = state.filter(el => el.checked).length;
+      return amount === 0 ? `clear-completed visibility` : "clear-completed";
+    };
 
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
@@ -24,9 +29,9 @@ class Footer extends Component {
       const clazz = isActive ? "selected" : "";
 
       /* TODO вынеси это в метод класса и дай нормально название. Допустим handleButtonClick. А то у тебя эта функция при каждом рендере создаётся */
-      let x = () => onFilterChange(name);
+      let handleButtonClick = () => onFilterChange(name);
       return (
-        <button key={name} className={`control--item  ${clazz} `} onClick={x}>
+        <button key={name} className={`control--item  ${clazz} `} onClick={handleButtonClick}>
           {label}
         </button>
       );
@@ -34,9 +39,9 @@ class Footer extends Component {
 
     return (
       <footer className="footer">
-        <span>{onSize}</span>
+        <span>{tasksAmount}</span>
         <div className="control">{buttons}</div>
-        <button className={onVisibleButton} onClick={onClearCompleted}>
+        <button className={clearAmount()} onClick={onClearCompleted}>
           Clear completed
         </button>
       </footer>
