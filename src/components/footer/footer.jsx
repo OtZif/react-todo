@@ -19,14 +19,14 @@ class Footer extends Component {
 
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
+      /* TODO Попробуй использовать здесь библиотеку classnames https://github.com/JedWatson/classnames
+      чтобы набор классов для элемента определить */
       const clazz = isActive ? "selected" : "";
+
+      /* TODO вынеси это в метод класса и дай нормально название. Допустим handleButtonClick. А то у тебя эта функция при каждом рендере создаётся */
       let x = () => onFilterChange(name);
       return (
-        <button
-          key={name}
-          className={`control--item  ${clazz} `}
-          onClick={x}
-        >
+        <button key={name} className={`control--item  ${clazz} `} onClick={x}>
           {label}
         </button>
       );

@@ -17,6 +17,8 @@ class Task extends Component {
     const elements = todos.map(item => {
       const { id, ...itemProps } = item;
 
+      /* TODO Забудь про однобуквенную название вообще :) Раз ты используешь класс можешь вынести все эти функции
+      как методы класса */
       let x = () => onCheckItem(id);
       let y = () => onDestroy(id);
       let z = () => onChangeLabel(id);
