@@ -163,14 +163,12 @@ class App extends Component {
     }
   };
 
-  render() {
-    /* TODO addLocal функция создаёт сайд эффект (то что она делает к рендереу вообще никак не относится)
-    сохранение в localStorage лучше вынести куда нибудь в другое место */
+  componentDidUpdate() {
     this.addLocal();
+  };
 
+  render() {
     const visible = this.filter(this.state.todos, this.state.currentFilter);
-
-
 
     return (
       <div>

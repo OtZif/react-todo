@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 import "./footer.css";
 
 class Footer extends Component {
@@ -8,40 +9,39 @@ class Footer extends Component {
     { name: "completed", label: "Completed" }
   ];
 
-  render() {
-    const {
-      state,
-      tasksAmount,
-      onClearCompleted,
-      filter,
-      onFilterChange
-    } = this.props;
+  clearAmount = () => {
+    const amount = this.props.state.filter(el => el.checked).length;
+    return amount === 0 ? `clear-completed visibility` : "clear-completed";
+  };
 
-    const clearAmount = () => {
-      const amount = state.filter(el => el.checked).length;
-      return amount === 0 ? `clear-completed visibility` : "clear-completed";
-    };
+  handleButtonClick = name => {
+    return () => this.props.onFilterChange(name);
+  };
 
-    const buttons = this.buttons.map(({ name, label }) => {
-      const isActive = filter === name;
-      /* TODO Попробуй использовать здесь библиотеку classnames https://github.com/JedWatson/classnames
-      чтобы набор классов для элемента определить */
-      const clazz = isActive ? "selected" : "";
-
-      /* TODO вынеси это в метод класса и дай нормально название. Допустим handleButtonClick. А то у тебя эта функция при каждом рендере создаётся */
-      let handleButtonClick = () => onFilterChange(name);
+  renderButtons = () => {
+    return this.buttons.map(({ name, label }) => {
       return (
-        <button key={name} className={`control--item  ${clazz} `} onClick={handleButtonClick}>
+        <button
+          key={name}
+          className={classNames(
+            `control--item  ${this.props.filter === name ? "selected" : ""} `
+          )}
+          onClick={this.handleButtonClick(name)}
+        >
           {label}
         </button>
       );
     });
+  };
+
+  render() {
+    const { tasksAmount, onClearCompleted } = this.props;
 
     return (
       <footer className="footer">
         <span>{tasksAmount}</span>
-        <div className="control">{buttons}</div>
-        <button className={clearAmount()} onClick={onClearCompleted}>
+        <div className="control">{this.renderButtons()}</div>
+        <button className={this.clearAmount()} onClick={onClearCompleted}>
           Clear completed
         </button>
       </footer>

@@ -3,33 +3,30 @@ import "./tasks.css";
 import TaskItem from "../task-item/task-item";
 
 class Tasks extends Component {
+  onCheckItem = id => {
+    return () => this.props.onCheckItem(id);
+  };
+  onDestroy = id => {
+    return () => this.props.onDestroy(id);
+  };
+  onChangeItemValue = id => {
+    return () => this.props.onChangeItemValue(id);
+  };
+
   render() {
-    const {
-      todos,
-      currentEdit,
-      onCheckItem,
-      onDestroy,
-      onChangeItemValue,
-      onCheckStatus,
-      pressEnterForEdit
-    } = this.props;
+    const { todos, currentEdit, onCheckStatus, pressEnterForEdit } = this.props;
 
     const elements = todos.map(item => {
       const { id, ...itemProps } = item;
 
-      /* TODO Забудь про однобуквенную название вообще :) Раз ты используешь класс можешь вынести все эти функции
-      как методы класса */
-      let x = () => onCheckItem(id);
-      let y = () => onDestroy(id);
-      let z = () => onChangeItemValue(id);
       return (
         <li key={id}>
           <TaskItem
             {...itemProps}
             isEditing={currentEdit === id}
-            onCheckItem={x}
-            onDestroy={y}
-            onChangeItemValue = {z}
+            onCheckItem={this.onCheckItem(id)}
+            onDestroy={this.onDestroy(id)}
+            onChangeItemValue={this.onChangeItemValue(id)}
             onCheckStatus={onCheckStatus}
             pressEnterForEdit={pressEnterForEdit}
           />

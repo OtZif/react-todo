@@ -28,7 +28,6 @@ class Main extends Component {
           />
         )}
         <label className="pen" htmlFor="toggle-all" />
-        {/* DONE TODO Почему компонент называется не во множественном числе? По идее должно быть Tasks. Лучше переименовать */}
         <Tasks
           todos={todos}
           currentEdit={currentEdit}
